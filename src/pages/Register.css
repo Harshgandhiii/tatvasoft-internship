@@ -1,0 +1,105 @@
+.regis{
+    width: 100%;
+}
+.home{
+    text-align: center;
+    padding-top: 50px;
+}
+.row{
+    text-align: center;
+    margin-bottom: 50px;
+}
+.personal{
+    padding: 0px 7.5% 20px 7.5%;
+}
+.personal hr{
+    margin: 20px 0;
+}
+
+.personal .prsnl{
+    font-weight: 700;
+    font-size: 20px;
+}
+.info{
+    color: #838383;
+}
+.form{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 0 7.5%;
+}
+
+.fname{
+    margin-right: 15px;
+    width: 45%;
+}
+.lname{
+    margin-right: 15px;
+    width: 45%;
+}
+.fname p,.lname p{
+    margin-bottom: 15px;
+    
+}
+
+.fname input,.lname input{
+    width: 100%;
+    height: 40px;
+}
+.email{
+    width: 90%;
+    padding: 20px 7.5%;
+}
+.email p{
+    margin-bottom: 15px;
+}
+.email input{
+    width: 100%;
+    height: 40px;
+}
+.login{
+    width: 100%;
+    padding: 50px 7.5%;
+}
+.login h2{
+    font-size: 20px;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.login hr{
+    margin: 20px 0;
+}
+
+.pass{
+    display: flex;
+    width: 100%;
+}
+
+.pass p{
+    margin-bottom: 15px;
+}
+.p1{
+    width: 45%;
+    margin-right: 15px;
+}
+.p2{
+    margin-right: 15px;
+    width: 45%;
+}
+.p1 input, .p2 input{
+    width: 100%;
+    height: 40px;
+}
+.btn{
+    width: 100%;
+    padding: 0 7.5% 20px 7.5%;
+}
+.btn button{
+    width: 136px;
+    height: 40px;
+    font-size: 16px;
+
+}
+

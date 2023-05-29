@@ -1,0 +1,32 @@
+.upperredline{
+    background-color: red;
+    height: 10px;
+}
+.container{
+    margin-top: -5px;
+    height: 60px;
+}
+
+.img1{
+    height: 70px;
+    align-items: center;
+
+}
+.header-right{
+    margin-left: 500px;
+}
+button{
+    width: 100.88px;
+    color: red;
+}
+
+.search{
+    height: 80px;
+    background-color: rgb(204,200,200);
+}
+.btnm{
+    width: 100px;
+    height: 40px;
+}
+
+
