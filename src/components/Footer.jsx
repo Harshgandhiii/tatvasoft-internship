@@ -1,14 +1,22 @@
 import React from "react";
 import '../pages/Footer.css';
-import img1 from '../images/tatvasoft-logo.png';
+import img2 from '../images/tatvasoft.png';
 
 function Footer() {
     return(
         <>
-        <div className="container">
-            <img src={img1} alt="img1" height={'45px'} width={'170px'}/>
-            <p>@2016 Tatvasoft.com all rights reserved</p>
-        </div>
+        <footer className="site-footer" id="footer">
+            <div className="bottom-footer">
+                <div className="container">
+                    <div className="text-center">
+                        <div className="footer-logo">
+                            <img src={img2} alt="sitelogo" className="img1"></img>
+                        </div>
+                        <p>2015 Tatvasoft.com. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
         </>
     )
 }
