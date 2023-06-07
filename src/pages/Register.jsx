@@ -1,35 +1,39 @@
 import { Button, Select, MenuItem } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import '../pages/Register.css'
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Formik } from 'formik';
 import { signUpSchema } from "../schemas";
 import { toast, ToastContainer } from "react-toastify";
 import userService from "../service/userService";
 import authService from "../service/authService";
-
-
+import "react-toastify/dist/ReactToastify.css";
 
 
 
 function Register() {
 
-    const navigate = useNavigate();
+    const nav = useNavigate();
 
     const initialValues = {
         firstName: '',
         lastName: '',
         email: '',
-        roleId: [],
+        roleId: '',
         password: '',
         confirmPassword: '',
     }
 
-    const onSubmit = (values) => {
+    const onSubmit = (values, action) => {
         delete values.confirmPassword;
-        authService.create(values).then((res) => {
-            toast.success("Successfully Registered");
-            navigate("/login");
+        action.resetForm();
+        console.log(values);
+        authService.register(values).then((res) => {
+            setTimeout(()=>{
+                toast.success("Successfully Registered",{theme:"colored"});
+            },2000);
+            
+            nav("/login");
         })
             .catch((err) => {
                 console.log(err);
@@ -58,15 +62,15 @@ function Register() {
                 <div className="home">
                     <ToastContainer />
                     <Button variant="text" disabled>Home</Button><span style={{ color: "red" }}> | </span>
-                    <Button variant="text" color="error"><Link to='/register'></Link>Create an account</Button>
+                    <Button variant="text" color="error" sx={{textTransform:"capitalize",}}>Create an account</Button>
                 </div>
                 <div className="row" style={{
-                    marginTop: "50px"
+                    marginTop: "30px"
                 }}>
                     <h1 style={{
                         fontSize: "32px",
                         fontStyle: 'roboto'
-                    }}>Login or Create an Account</h1>
+                    }}>Login or Create an Account</h1><hr/>
                 </div>
                 <div className="personal">
                     <p className="prsnl">Personal Information</p><br /><hr />
@@ -74,9 +78,10 @@ function Register() {
                 </div>
 
                 {/* form */}
-                <Formik initialValues={initialValues} validationSchema={signUpSchema} onSubmit={onSubmit}>{({ values, errors, touched, handleChange, handleBlur, handleSubmit, }) => (
+                <Formik initialValues={initialValues} validationSchema={signUpSchema} onSubmit={onSubmit}>{({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting}) => (
                     <form onSubmit={handleSubmit}>
                         <div className="form">
+                        
                             <div className="fname">
                                 <p>First Name*</p>
                                 <input type="text" name="firstName" id="fname" value={values.firstName}
@@ -89,6 +94,7 @@ function Register() {
                             </div>
                             {errors.lastName && touched.lastName ? (<p className="form-error" style={{ color: 'red' }}>{errors.lastName}</p>) : null}
                         </div>
+                        <div className="form">
                         <div className="email">
                             <p>Email Address*</p>
                             <input type="email" name="email" id="email"
@@ -98,14 +104,15 @@ function Register() {
 
                         <div className="roleId">
                             <p>Role*</p>
-                            <Select type="email" name="roleId" id="email"
+                            <Select type="email" name="roleId" id="email" style={{width:610, height:48, borderBlockColor:'black'}}
                                 value={values.roleId} onChange={handleChange} onBlur={handleBlur}>
-                                    {roleList.length > 0 & roleList.map((role) => (
+                                    {roleList && roleList.length > 0 && roleList.map((role) => (
                                         <MenuItem value={role.id} key={"name" + role.id}>
                                             {role.name}
                                         </MenuItem>
                                     ))}</Select>
                             {errors.roleId && touched.roleId ? (<p className="form-error" style={{ color: 'red' }}>{errors.roleId}</p>) : null}
+                        </div>
                         </div>
 
                         <div className="login">
@@ -114,28 +121,21 @@ function Register() {
                             <div className="pass">
                                 <div className="p1">
                                     <p>Password*</p>
-                                    <input type="password" name="pass" id="pass"
+                                    <input type="password" name="password" id="pass"
                                         value={values.pass} onChange={handleChange} onBlur={handleBlur} />
-                                    {errors.pass && touched.pass ? (<p className="form-error" style={{ color: 'red' }}>{errors.pass}</p>) : null}
+                                    {errors.password && touched.password ? (<p className="form-error" style={{ color: 'red' }}>{errors.password}</p>) : null}
                                 </div>
                                 <div className="p2">
                                     <p>Confirm Password*</p>
-                                    <input type="password" name="pass1" id="pass"
-                                        value={values.pass1} onChange={handleChange} onBlur={handleBlur} />
-                                    {errors.pass1 && touched.pass1 ? (<p className="form-error" style={{ color: 'red' }}>{errors.pass1}</p>) : null}
+                                    <input type="password" name="confirmPassword" id="pass"
+                                        value={values.confirmPassword} onChange={handleChange} onBlur={handleBlur} />
+                                    {errors.confirmPassword && touched.confirmPassword ? (<p className="form-error" style={{ color: 'red' }}>{errors.confirmPassword}</p>) : null}
                                 </div>
                             </div>
                         </div>
 
-
-
-
-
-
-
-
                         <div className="btn">
-                            <Button variant="contained" color="error" type="submit">Register</Button>
+                            <Button variant="contained" color="error" type="submit" disabled={isSubmitting} onClick={handleSubmit}>Register</Button>
                         </div>
                     </form>
                 )}

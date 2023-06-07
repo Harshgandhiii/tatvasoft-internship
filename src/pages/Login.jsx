@@ -6,6 +6,8 @@ import { Formik } from "formik";
 import { toast, ToastContainer } from "react-toastify";
 import authService from "../service/authService";
 import { loginSchema } from "../schemas";
+import "react-toastify/dist/ReactToastify.css";
+import { useAuthContext } from "../context/auth";
 
 
 
@@ -17,6 +19,7 @@ function Login() {
     }
 
     const nav =useNavigate();
+    const authContext = useAuthContext();
 
 
     const onSubmit= (values) => {
@@ -24,10 +27,11 @@ function Login() {
         .login(values).then((res)=>{
             delete res._id;
             delete res.__v;
+            authContext.setUser(res);
             setTimeout(()=>{
-                toast.success("Successfully logged in");
+                toast.success("Successfully logged in",{theme:"colored"});
             },2000);
-            nav("/product-list");
+        
         })
         .catch((err)=>{
             console.log(err);
@@ -39,16 +43,17 @@ function Login() {
         <>
         <div className="home">
             <ToastContainer/>
+    
                 <Button variant="text" disabled>Home</Button><span style={{color:'red'}}> | </span>
                 <Button variant="text"color="error"><Link to='/register'></Link>Login</Button>
             </div>
             <div className="roww" style={{
-            marginTop: "50px"
+            marginTop: "15px"
         }}>
             <h1 style={{
                 fontSize:"32px",
                 fontStyle: 'roboto'
-            }}>Login or Create an Account</h1>
+            }}>Login or Create an Account</h1><hr/>
         </div>
 
         <Stack direction='row' className="main">
@@ -96,6 +101,7 @@ function Login() {
                             value={values.email}
                             onChange={handleChange}
                             onBlur={handleBlur}
+                            sx={{width: 500}}
                             />
                             {errors.email && touched.email? (<p className="form-erro" style={{color:'red'}}>{errors.email}</p>):null}
                     </Stack>
@@ -112,6 +118,7 @@ function Login() {
                             value={values.password}
                             onChange={handleChange}
                             onBlur={handleBlur}
+                            sx={{width: 500}}
                             
                             
                             />
