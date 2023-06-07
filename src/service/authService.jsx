@@ -9,7 +9,7 @@ const login = async(values) => {
     })
 }
 
-const create = async(values)=>{
+const register = async(values)=>{
     const url = `${ENDPOINT}`;
     return request.post(url, values).then((res)=>{
         return res;
@@ -18,7 +18,7 @@ const create = async(values)=>{
 
 const authService = {
     login,
-    create,
+    register,
 }
 
 export default authService;
